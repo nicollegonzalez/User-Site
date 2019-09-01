@@ -23,7 +23,9 @@
   },
   "proxy": "http://localhost:3001",
   "nodemonConfig": {
-    "ignore": ["src/*"],
+    "ignore": [
+      "src/*"
+    ],
     "delay": "2500"
   },
   "browserslist": {

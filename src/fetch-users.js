@@ -8,6 +8,12 @@ export const fetchUsers = () => {
   // in the format:
   // { items: [], _total: 0 }
   // You can read README.md for more info
-  return fetch(USER_API_ENDPOINT)
+
+  let newEndPoint = USER_API_ENDPOINT +'?limit=50&offset=50';
+  
+
+
+  
+  return fetch(newEndPoint)
     .then(results => results.json())
 };
