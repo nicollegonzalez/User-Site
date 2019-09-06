@@ -19,7 +19,14 @@ export const fetchUsers = () => {
   let counter = 0;
   
 
-  // async function getTotalUsers() {
+  // async function getAllUsers() {
+    
+    // //Read first end point
+    // let firstResponse = await fetch(USER_API_ENDPOINT);
+    // let firstJson = await firstResponse.json();
+    // let totalUsers = await console.log(firstJson.data);
+
+
     fetch(USER_API_ENDPOINT)
       .then(result => result.json())
       .then(data => {
@@ -36,93 +43,60 @@ export const fetchUsers = () => {
         // console.table(promisesArray);
 
         Promise.all(promisesArray)
-        .then(results =>{
+        .then(results => {
+          console.log(results)
           results.forEach(result => {
-            // console.log(result.json());
-            // console.log("GROM")
-            process(result.json());
-            // console.log("YEWWWWWW")
-
+            process(result.json())
           })
+          console.log(results)
+        }).then(response => {
+          // sayHello();
+          console.log("SUP BRAH")
         })
-        // .then(console.log("YEWWWWWW"))
 
 
-        let process = (prom) => {
+        // let process = (prom) => {
+        function process(prom){
           prom.then(data =>{
+            console.log("HELLO");
             let arr = data.items;
             // console.table(arr);
             arr.forEach( ele => {
               // console.log(ele);
               promiseObj.items.push(ele);
+              // console.log(counter)
               counter ++;
+              // console.log(counter)
             })
             if(counter === totalUsers){
               console.log(promiseObj);
-              return promiseObj.json();
+              // return promiseObj.json();
+              return new Promise(function(resolve, reject) {        
+                  resolve(promiseObj);
+                });
             }
           })
         }
 
-
         
       })
+    
   // }
 
-  
-  // for(let i=0; i < 12; i++){
-  //   console.log(`${USER_API_ENDPOINT}?limit=50&offset=${offset}`)
-  //   promisesArray.push( USER_API_ENDPOINT +`?limit=50&offset=${offset}`);
-  //   offset += 50;
-  // }
-  // var checkVariable = function () {
-  //   if (totalUsers === undefined){
-  //     checkVariable();
-  //   }
-  //   else {
-  //     let offset = 0;
-  //     const num = Math.floor(totalUsers / 50);
-  //     const remainder = totalUsers - (num * 50);
-  //     console.log("this is num ", num, " now this is remainder ", remainder);
-  //     for(let i=0; i < num; i++){
-  //       console.log(`?limit=50&offset=${offset}`)
-  //       promisesArray.push( USER_API_ENDPOINT +`?limit=50&offset=${offset}`);
-  //       offset += 50;
-  //     }
-  //   }
-  // };
-  // checkVariable();
-
-
-  // setTimeout(function  checkVariable (){
-  //   if (totalUsers === undefined){
-  //     checkVariable();
-  //   }
-  //   else {
-  //     let offset = 0;
-  //     const num = Math.floor(totalUsers / 50);
-  //     const remainder = totalUsers - (num * 50);
-  //     console.log("this is num ", num, " now this is remainder ", remainder);
-  //     for(let i=0; i < num; i++){
-  //       console.log(`?limit=50&offset=${offset}`)
-  //       promisesArray.push( USER_API_ENDPOINT +`?limit=50&offset=${offset}`);
-  //       offset += 50;
-  //     }
-
-  //   }
-  // }, 250);
-  
 
 
 
-
-  // let newEndPoint = USER_API_ENDPOINT +'?limit=50&offset=50';
+  let newEndPoint = USER_API_ENDPOINT +'?limit=50&offset=50';
 
  
   
 
 
   
-  // return fetch(newEndPoint)
-  //   .then(results => results.json())
+  return fetch(newEndPoint)
+    .then(results => results.json())
+    // .then(results => console.log(results.json()))
+    // .then(data => console.log(data))
+
+
 };
