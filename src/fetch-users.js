@@ -19,12 +19,33 @@ export const fetchUsers = () => {
   let counter = 0;
   
 
-  // async function getAllUsers() {
+  async function fetchAllUsers() {
     
     // //Read first end point
     // let firstResponse = await fetch(USER_API_ENDPOINT);
     // let firstJson = await firstResponse.json();
     // let totalUsers = await console.log(firstJson.data);
+    let push = new Promise((resolve, reject) => {
+      // setTimeout(() => resolve("done!"), 1000)
+      fetch(USER_API_ENDPOINT)
+      .then(result => result.json())
+      .then(data => {
+        totalUsers = data._total;
+        promiseObj._total = totalUsers;
+        console.log(promiseObj);
+        const num = Math.ceil(totalUsers / 50);
+        const remainder = totalUsers % 50;
+        for(let i = 0; i < num; i++){
+          promisesArray.push( fetch(USER_API_ENDPOINT +`?limit=50&offset=${offset}`));
+          offset += 50;
+        }
+      
+    });
+  
+    let result = await promise; // wait till the promise resolves (*)
+  
+    alert(result); // "done!"
+  }
 
 
     fetch(USER_API_ENDPOINT)
