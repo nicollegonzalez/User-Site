@@ -12,41 +12,47 @@ export const fetchUsers = () => {
   // { items: [], _total: 0 }
   // You can read README.md for more info
 
-  let totalUsers;
-  let promisesArray = [];
+  const USER_API_ENDPOINTS = [USER_API_ENDPOINT];
   let promiseObj = { items: [], _total: 0 };
-  let offset = 0;
-  let counter = 0;
-  
+  // const totalUsers = 0;
 
-  async function fetchAllUsers() {
-    
-    // //Read first end point
-    // let firstResponse = await fetch(USER_API_ENDPOINT);
-    // let firstJson = await firstResponse.json();
-    // let totalUsers = await console.log(firstJson.data);
-    let push = new Promise((resolve, reject) => {
-      // setTimeout(() => resolve("done!"), 1000)
-      fetch(USER_API_ENDPOINT)
-      .then(result => result.json())
-      .then(data => {
-        totalUsers = data._total;
-        promiseObj._total = totalUsers;
-        console.log(promiseObj);
-        const num = Math.ceil(totalUsers / 50);
-        const remainder = totalUsers % 50;
-        for(let i = 0; i < num; i++){
-          promisesArray.push( fetch(USER_API_ENDPOINT +`?limit=50&offset=${offset}`));
+  // async function getTotalUsers(){
+
+  //   let response = await fetch(USER_API_ENDPOINT)
+  //   let data = await response.json()
+  //   let totalUsers = await data._total
+  //   return totalUsers;
+  // }
+  async function f() {
+
+
+    // let promiseGetTotalUsers = new Promise((resolve, reject) => {
+    async function getTotalUsers () {
+      const response = await fetch(USER_API_ENDPOINT);
+      const json = await response.json();
+      const data = await json.data;
+      // promiseObj._total = data._total;
+      return data._total;
+    }
+
+    promiseObj._total = getTotalUsers();
+
+
+    async function pushUserApiEndpoint () {
+      let offset = await 0;
+      const totalNumUsers = await getTotalUsers();
+      const length = await Math.ceil(totalNumUsers / 50);
+      const x  = await function (length) {
+        for(let i = 1; i < length; i++){
+          USER_API_ENDPOINTS.push(USER_API_ENDPOINT +`?limit=50&offset=${offset}`);
           offset += 50;
         }
-      
-    });
-  
-    let result = await promise; // wait till the promise resolves (*)
-  
-    alert(result); // "done!"
-  }
+      }
+    }
 
+    pushUserApiEndpoint();
+        
+  }
 
     fetch(USER_API_ENDPOINT)
       .then(result => result.json())
